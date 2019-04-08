@@ -32,7 +32,7 @@ public class Empresa {
 	}
 	
 	public Double income(int mes, int ano) {
-		Double soma = 2.0;
+		Double soma = 0.0;
 		for(Trabalhador t : trabalhadores) {
 			soma += t.income(mes, ano);
 		}

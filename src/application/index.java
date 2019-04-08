@@ -23,16 +23,16 @@ public class index {
 		System.out.println("Entre com o nome da empresa: ");
 		String nome_empresa = sc.nextLine();
 		Empresa empresa = new Empresa(nome_empresa);
-		System.out.println("Entre com o numero de funcionarios: ");
+		System.out.println("Entre com o numero de trabalhadores contratados como tercerizados: ");
 		Integer n_funcionarios = sc.nextInt();
 		sc.nextLine();
 		System.out.printf("%n");
 		
 		//adiciona funcionários
 		while(n_funcionarios>0) {
-			System.out.print("Entre seu departamento: ");
+			System.out.print("Entre por qual departamento foi contrato: ");
 			String nomeDepartamento = sc.nextLine();
-			System.out.println("Entre seus dados");
+			System.out.println("Entre dados do trabalhador tercerizado");
 			System.out.print("Nome: ");
 			String nome = sc.nextLine();
 			System.out.print("Level: ");
@@ -44,11 +44,11 @@ public class index {
 			Trabalhador trabalhador = new Trabalhador(nome, LevelTrabalhador.valueOf(level), salarioBase, new Departamento(nomeDepartamento));
 			
 			//recebe o número de contratos e o adiciona a seguir
-			System.out.print("Quantos contratos voce conseguiu: ");
+			System.out.print("Quantos contratos com este trabalhador? ");
 			Integer n_contratos = sc.nextInt();
 
 			while(n_contratos > 0) {
-				System.out.print("Entre com a data(DD/MM/YY): ");
+				System.out.print("Entre com a data do contrato (DD/MM/YY): ");
 				Date data_contrato = sdf.parse(sc.next()); //nextLine em datas deu problema aqui e embaixo
 				System.out.print("Entre com o valor por hora: ");
 				Double valorHora = sc.nextDouble();
@@ -62,7 +62,7 @@ public class index {
 				n_contratos--;
 			}
 			
-			System.out.print("Entre mês e ano que quer saber seu income (MM/YYYY): ");
+			System.out.print("Entre mês e ano que quer saber os gastos da empresa com este trabalhador (MM/YYYY): ");
 			String data_income = sc.next(); //nextLine em datas deu problema aqui e acima
 			int mes = Integer.parseInt(data_income.substring(0, 2));
 			int ano = Integer.parseInt(data_income.substring(3, 7));
@@ -70,28 +70,25 @@ public class index {
 			empresa.addTrabalhador(trabalhador);
 			
 			System.out.println();
-			System.out.println("Nome: " + trabalhador.getNome());
-			System.out.println("Departamento: " + trabalhador.getNomeDepartamento());
-			System.out.printf("Income do mês %d do ano %d foi de %.2f reais%n%n", mes, ano, trabalhador.income(mes, ano));
+			System.out.println("Nome da Empresa: " + trabalhador.getNome());
+			System.out.println("Departamento contratante: " + trabalhador.getNomeDepartamento());
+			System.out.printf("Gasto do mês %d no ano de %d com este trabalhador foi de %.2f reais%n%n", mes, ano, trabalhador.income(mes, ano));
 			sc.nextLine();
 			n_funcionarios --;
 		}
 		
 		//saber redimento de uma empresa por quanto seus funcionários ganharam
-		System.out.println("Voce quer saber se o rendimento de um determinado mês e ano da empresa?(y/n)");
+		System.out.println("Voce quer saber o gasto com trabalhadores tercerizados em um determinado mês e ano da sua Empresa?(y/n)");
 		String saber = sc.nextLine();
 		if(saber.equals(String.valueOf('y'))) {
-			System.out.println("certo");
-			System.out.print("Entre mês e ano que quer saber seu income (MM/YYYY): ");
+			System.out.print("Entre mês e ano que quer saber seu gasto (MM/YYYY): ");
 			String data_income = sc.next(); //nextLine em datas deu problema aqui e acima
 			int mes = Integer.parseInt(data_income.substring(0, 2));
 			int ano = Integer.parseInt(data_income.substring(3, 7));
-			
+				
 			System.out.println("Nome: " + empresa.getNome());
-			System.out.printf("Income da empresa no mês %d e ano %d foi de %.2f reais", mes, ano, empresa.income(mes, ano));
-			
+			System.out.printf("Gastos da empresa no mês %d do ano de %d foi de %.2f reais", mes, ano, empresa.income(mes, ano));
 		}
-		
 		sc.close();
 	}
 }
