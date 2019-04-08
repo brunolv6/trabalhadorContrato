@@ -30,4 +30,12 @@ public class Empresa {
 	public void removeTrabalhador(Trabalhador trabalhador) {
 		trabalhadores.remove(trabalhador);
 	}
+	
+	public Double income(int mes, int ano) {
+		Double soma = 2.0;
+		for(Trabalhador t : trabalhadores) {
+			soma += t.income(mes, ano);
+		}
+		return soma;
+	}
 }

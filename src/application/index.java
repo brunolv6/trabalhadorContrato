@@ -19,6 +19,7 @@ public class index {
 		Scanner sc = new Scanner(System.in);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
+		//cria empresa e a instância
 		System.out.println("Entre com o nome da empresa: ");
 		String nome_empresa = sc.nextLine();
 		Empresa empresa = new Empresa(nome_empresa);
@@ -27,6 +28,7 @@ public class index {
 		sc.nextLine();
 		System.out.printf("%n");
 		
+		//adiciona funcionários
 		while(n_funcionarios>0) {
 			System.out.print("Entre seu departamento: ");
 			String nomeDepartamento = sc.nextLine();
@@ -41,9 +43,10 @@ public class index {
 			//intanciação do trabalhador
 			Trabalhador trabalhador = new Trabalhador(nome, LevelTrabalhador.valueOf(level), salarioBase, new Departamento(nomeDepartamento));
 			
+			//recebe o número de contratos e o adiciona a seguir
 			System.out.print("Quantos contratos voce conseguiu: ");
 			Integer n_contratos = sc.nextInt();
-			//ciclo de entrada de contratos
+
 			while(n_contratos > 0) {
 				System.out.print("Entre com a data(DD/MM/YY): ");
 				Date data_contrato = sdf.parse(sc.next()); //nextLine em datas deu problema aqui e embaixo
@@ -64,6 +67,8 @@ public class index {
 			int mes = Integer.parseInt(data_income.substring(0, 2));
 			int ano = Integer.parseInt(data_income.substring(3, 7));
 			
+			empresa.addTrabalhador(trabalhador);
+			
 			System.out.println();
 			System.out.println("Nome: " + trabalhador.getNome());
 			System.out.println("Departamento: " + trabalhador.getNomeDepartamento());
@@ -71,5 +76,22 @@ public class index {
 			sc.nextLine();
 			n_funcionarios --;
 		}
+		
+		//saber redimento de uma empresa por quanto seus funcionários ganharam
+		System.out.println("Voce quer saber se o rendimento de um determinado mês e ano da empresa?(y/n)");
+		String saber = sc.nextLine();
+		if(saber.equals(String.valueOf('y'))) {
+			System.out.println("certo");
+			System.out.print("Entre mês e ano que quer saber seu income (MM/YYYY): ");
+			String data_income = sc.next(); //nextLine em datas deu problema aqui e acima
+			int mes = Integer.parseInt(data_income.substring(0, 2));
+			int ano = Integer.parseInt(data_income.substring(3, 7));
+			
+			System.out.println("Nome: " + empresa.getNome());
+			System.out.printf("Income da empresa no mês %d e ano %d foi de %.2f reais", mes, ano, empresa.income(mes, ano));
+			
+		}
+		
+		sc.close();
 	}
 }
